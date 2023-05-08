@@ -1,6 +1,6 @@
 
-export const MyOrders = () => {
+export const MyOrder = () => {
   return (
-    <div>MyOrders</div>
+    <div>MyOrder</div>
   )
 }

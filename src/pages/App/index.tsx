@@ -1,10 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "../../Routes";
 import "./App.css";
 
-function App() {
+function App(): JSX.Element {
   return (
-    <>
-      <main className="text-3xl bg-red-100">hola</main>
-    </>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
