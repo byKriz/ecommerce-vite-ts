@@ -16,11 +16,11 @@ export const ProductPage = (): JSX.Element => {
   //   console.log(params);
 
   return (
-    <Layout>
+    <Layout className="flex flex-col items-center w-full h-screen">
       <div className=" w-full h-full flex justify-between items-center">
         <div className="w-1/2">
           <img
-            className="w-full p-16"
+            className="w-80% h-auto p-16"
             src={product?.image}
             alt={product?.title}
           />
@@ -31,8 +31,8 @@ export const ProductPage = (): JSX.Element => {
             <span className="font-light">Product ID: {product?.id}</span>
             <p>{product?.description}</p>
             <div className=" mt-20 flex w-80% justify-between px-10">
-              <span>{product?.price}$</span>
-              <button className=" bg-black text-white px-2 py-0.5 rounded-lg hover:text-yellow-300">Add To Cart</button>
+              <span className=" text-4xl">{product?.price}$</span>
+              <button className="bg-black text-white px-2 py-0.5 rounded-lg hover:text-yellow-300">Add To Cart</button>
             </div>
           </div>
         </div>
