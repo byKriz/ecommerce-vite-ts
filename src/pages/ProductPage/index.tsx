@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
-import { useParams } from "react-router-dom";
+import { Params, useParams } from "react-router-dom";
 import { Product } from "../../Interfaces/Product";
+
+interface ParamsType extends Params<string> {
+  id?: string;
+}
 
 export const ProductPage = (): JSX.Element => {
   const [product, setProduct] = useState<Product>();
-  const params = useParams();
+  const params: ParamsType = useParams();
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${params.id}`)
@@ -32,7 +36,9 @@ export const ProductPage = (): JSX.Element => {
             <p>{product?.description}</p>
             <div className=" mt-20 flex w-80% justify-between px-10">
               <span className=" text-4xl">{product?.price}$</span>
-              <button className="bg-black text-white px-2 py-0.5 rounded-lg hover:text-yellow-300">Add To Cart</button>
+              <button className="bg-black text-white px-2 py-0.5 rounded-lg hover:text-yellow-300">
+                Add To Cart
+              </button>
             </div>
           </div>
         </div>
