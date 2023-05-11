@@ -24,17 +24,20 @@ export const ProductPage = (): JSX.Element => {
       <div className=" w-full h-full flex justify-between items-center">
         <div className="w-1/2">
           <img
-            className="w-80% h-auto p-16"
+            className="w-[80%] h-[80%] object-cover rounded-lg m-16"
             src={product?.images[0]}
             alt={product?.title}
           />
         </div>
         <div className="flex flex-col w-1/2 h-full justify-center items-center">
-          <div className="flex flex-col gap-3 text-lg font-semibold bg-gray-200 mr-5 p-4 rounded-lg">
+          <div className="flex flex-col gap-3 text-lg font-semibold bg-gray-200 mr-5 px-10 py-4 rounded-lg">
             <h1 className=" text-3xl">{product?.title}</h1>
             <span className="font-light">Product ID: {product?.id}</span>
+            <span className="font-light">
+              Category: {product?.category.name}
+            </span>
             <p>{product?.description}</p>
-            <div className=" mt-20 flex w-80% justify-between px-10">
+            <div className=" mt-20 flex w-full justify-between gap-4 ">
               <span className=" text-4xl">{product?.price}$</span>
               <button className="bg-black text-white px-2 py-0.5 rounded-lg hover:text-yellow-300">
                 Add To Cart
