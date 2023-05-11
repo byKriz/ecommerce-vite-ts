@@ -10,7 +10,7 @@ export const Home = () => {
     fetch("https://fakestoreapi.com/products")
       .then((resp) => resp.json())
       .then((data) => setProducts(data))
-      .catch((error) => console.error(error));
+      // .catch((error) => console.error(error));
   }, []);
 
   return (

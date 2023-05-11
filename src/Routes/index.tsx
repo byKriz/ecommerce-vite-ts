@@ -5,6 +5,7 @@ import { MyOrders } from "../pages/MyOders";
 import { MyOrder } from "../pages/MyOrder";
 import { NotFound } from "../pages/NotFound";
 import { SignIn } from "../pages/SignIn";
+import { ProductPage } from "../pages/ProductPage";
 
 export const AppRoutes = (): React.ReactElement<
   any,
@@ -35,6 +36,10 @@ export const AppRoutes = (): React.ReactElement<
       path: "/*",
       element: <NotFound />,
     },
+    {
+      path: "/product/:id",
+      element: <ProductPage />
+    }
   ]);
 
   return routes;
