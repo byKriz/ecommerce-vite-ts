@@ -1,6 +1,9 @@
-interface Rating {
-  rate: number;
-  count: number;
+interface Category {
+  id: number;
+  name: string;
+  image: string;
+  creationAt?: string;
+  updatedAt?: string;
 }
 
 export interface Product {
@@ -8,7 +11,8 @@ export interface Product {
   title: string;
   price: number;
   description: string;
-  category: string;
-  image: string;
-  rating: Rating;
+  images: string[];
+  category: Category;
+  creationAt?: string;
+  updatedAt?: string;
 }

@@ -12,7 +12,7 @@ export const ProductPage = (): JSX.Element => {
   const params: ParamsType = useParams();
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${params.id}`)
+    fetch(`https://api.escuelajs.co/api/v1/products/${params.id}`)
       .then((response) => response.json())
       .then((data) => setProduct(data));
   }, []);
@@ -25,7 +25,7 @@ export const ProductPage = (): JSX.Element => {
         <div className="w-1/2">
           <img
             className="w-80% h-auto p-16"
-            src={product?.image}
+            src={product?.images[0]}
             alt={product?.title}
           />
         </div>

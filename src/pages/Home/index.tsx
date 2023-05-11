@@ -7,7 +7,7 @@ export const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://api.escuelajs.co/api/v1/products")
       .then((resp) => resp.json())
       .then((data) => setProducts(data))
       // .catch((error) => console.error(error));
