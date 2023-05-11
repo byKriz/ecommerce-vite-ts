@@ -7,7 +7,7 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
 
   return (
     <nav
-      className="flex justify-between items-center w-full fixed z-10 py-5 px-8 mt-4 text-sm font-light"
+      className="flex justify-between items-center w-full fixed z-10 py-5 px-8 top-0 text-sm font-light"
       {...navProps}
     >
       <ul className="flex items-center gap-3">
@@ -64,7 +64,7 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li>email@generico.com</li>
+        <li className='text-black/60'>email@generico.com</li>
         <li>
           <NavLink
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
