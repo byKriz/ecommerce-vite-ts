@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { ShoppingCartContext } from "../../Context/ShoppingCartContext";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 
 export const Navbar = ({ ...navProps }: Props): JSX.Element => {
+  const cartContext = useContext(ShoppingCartContext);
   const activeStyle: string = "underline underline-offset-4";
 
   return (
@@ -64,7 +67,7 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className='text-black/60'>email@generico.com</li>
+        <li className="text-black/60">email@generico.com</li>
         <li>
           <NavLink
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
@@ -89,7 +92,7 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
             sign In
           </NavLink>
         </li>
-        <li>Carrito 0</li>
+        <li>Carrito {cartContext.count.length}</li>
       </ul>
     </nav>
   );
