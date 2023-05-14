@@ -1,30 +1,29 @@
 import React, { createContext, useState } from "react";
-import { Product } from "../../Interfaces/Product";
+// import { Product } from "../../Interfaces/Product";
+import { CartItem } from "../../Interfaces/IteamCart";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export interface ShoppingCartContextType {
-  count: Product[];
-  setCount: React.Dispatch<React.SetStateAction<Product[]>>;
+  items: CartItem[];
+  setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
-  count: [],
-  setCount: () => {}
+  items: [],
+  setItems: () => {},
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
-  const [count, setCount] = useState<Product[]>([]);
-  // console.log("COUNT: ", count);
-  
+  const [items, setItems] = useState<CartItem[]>([]);
 
   return (
     <ShoppingCartContext.Provider
       value={{
-        count,
-        setCount,
+        items,
+        setItems,
       }}
     >
       {children}

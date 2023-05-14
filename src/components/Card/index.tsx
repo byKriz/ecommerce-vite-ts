@@ -2,13 +2,28 @@ import { useContext } from "react";
 import { Product } from "../../Interfaces/Product";
 import { Link } from "react-router-dom";
 import { ShoppingCartContext, ShoppingCartContextType } from "../../Context/ShoppingCartContext";
+import { CartItem } from "../../Interfaces/IteamCart";
 
 interface Props {
   product: Product;
 }
 
 export const handleCart = (contex: ShoppingCartContextType, item: Product): void => {
-  contex.setCount((prev) => [...prev, item]);
+  contex.setItems((prev) => {
+    const itemIndex = prev.findIndex(prod => prod.id === item.id);
+
+    if (itemIndex === -1) {
+      const newItem: CartItem = {...item, count: 1}
+      return [...prev, newItem]
+    }
+    const updatedItem: CartItem = {...prev[itemIndex]};
+    updatedItem.count += 1;
+    const updatedCart = [...prev];
+    updatedCart[itemIndex] = updatedItem;
+    return updatedCart
+
+
+  });
 };
 
 export const Card = ({ product }: Props): JSX.Element => {

@@ -1,8 +1,17 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ShoppingCartContext } from "../../Context/ShoppingCartContext";
+import {
+  ShoppingCartContext,
+  ShoppingCartContextType,
+} from "../../Context/ShoppingCartContext";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
+
+const totalItems = (context: ShoppingCartContextType) => {
+  const total = context.items.reduce((total, item) => total + item.count, 0);
+  // console.log(total);
+  return total;
+};
 
 export const Navbar = ({ ...navProps }: Props): JSX.Element => {
   const cartContext = useContext(ShoppingCartContext);
@@ -92,7 +101,7 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
             sign In
           </NavLink>
         </li>
-        <li>Carrito {cartContext.count.length}</li>
+        <li>Carrito {totalItems(cartContext)}</li>
       </ul>
     </nav>
   );
