@@ -1,18 +1,19 @@
 import { useContext } from "react";
 import { Product } from "../../Interfaces/Product";
 import { Link } from "react-router-dom";
-import { ShoppingCartContext } from "../../Context/ShoppingCartContext";
+import { ShoppingCartContext, ShoppingCartContextType } from "../../Context/ShoppingCartContext";
 
 interface Props {
   product: Product;
 }
 
+export const handleCart = (contex: ShoppingCartContextType, item: Product): void => {
+  contex.setCount((prev) => [...prev, item]);
+};
+
 export const Card = ({ product }: Props): JSX.Element => {
   const cartContext = useContext(ShoppingCartContext);
 
-  const handleCart = (item: Product): void => {
-    cartContext.setCount((prev) => [...prev, item]);
-  };
 
   return (
     // <Link to={`/product/${product.id}`}>
@@ -28,7 +29,7 @@ export const Card = ({ product }: Props): JSX.Element => {
         />
         <div
           className="absolute top-1 right-1 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
-          onClick={() => handleCart(product)}
+          onClick={() => handleCart(cartContext, product)}
         >
           +
         </div>

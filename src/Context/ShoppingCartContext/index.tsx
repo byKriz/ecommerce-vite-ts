@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface ShoppingCartContextType {
+export interface ShoppingCartContextType {
   count: Product[];
   setCount: React.Dispatch<React.SetStateAction<Product[]>>;
 }
