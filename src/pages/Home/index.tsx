@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../../components/Card";
 import { Layout } from "../../components/Layout";
 import { Product } from "../../Interfaces/Product";
+import { ProductDetails } from "../../components/ProductDetail";
 
 export const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,7 +11,7 @@ export const Home = () => {
     fetch("https://api.escuelajs.co/api/v1/products")
       .then((resp) => resp.json())
       .then((data) => setProducts(data))
-      // .catch((error) => console.error(error));
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -20,6 +21,7 @@ export const Home = () => {
           <Card product={product} key={product.id} />
         ))}
       </div>
+      <ProductDetails />
     </Layout>
   );
 };

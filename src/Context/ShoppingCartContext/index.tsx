@@ -18,6 +18,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
 
 export const ShoppingCartProvider = ({ children }: Props) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  console.log('Cart: ', items);
+  
 
   return (
     <ShoppingCartContext.Provider
