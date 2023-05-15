@@ -33,7 +33,7 @@ export const Card = ({ product }: Props): JSX.Element => {
 
   return (
     // <Link to={`/product/${product.id}`}>
-    <div className="bg-white cursor-pointer w-56 h-60 rounded-lg">
+    <div className="bg-white cursor-pointer w-56 h-60 rounded-lg" onClick={() => cartContext.openProductDetail()}>
       <figure className="relative mb-2 w-full h-4/5">
         <span className="absolute bottom-0 left-0 m-2 bg-white/60 rounded-lg text-black text-xs px-3 py-0.5">
           {product.category.name}

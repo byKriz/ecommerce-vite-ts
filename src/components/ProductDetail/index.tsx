@@ -10,17 +10,23 @@ export const ProductDetails = (): JSX.Element => {
   const cartContext: ShoppingCartContextType = useContext(ShoppingCartContext);
 
   const totalPrice = (): number => {
-      const price = cartContext.items.reduce((sum, item) => {
-        return sum + (item.price * item.count)
-      }, 0)
-      return price
-  }
+    const price = cartContext.items.reduce((sum, item) => {
+      return sum + item.price * item.count;
+    }, 0);
+    return price;
+  };
 
   return (
-    <aside className="flex flex-col justify-between fixed right-0 top-[80px] border bg-white border-black rounded-lg w-[360px] h-[calc(100vh-80px)] ">
+    <aside
+      className={
+        cartContext.isProductDetailOpen
+          ? "flex flex-col justify-between fixed right-0 top-[80px] border bg-white border-black rounded-lg w-[360px] h-[calc(100vh-80px)]"
+          : "hidden"
+      }
+    >
       <div className="flex justify-between items-center p-6">
         <h2 className="font-medium text-xl">Detail</h2>
-        <div>
+        <div onClick={() => cartContext.closeProductDetail()}>
           <XCircleIcon className="w-6" />
         </div>
       </div>

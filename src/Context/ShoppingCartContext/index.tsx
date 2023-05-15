@@ -9,23 +9,36 @@ interface Props {
 export interface ShoppingCartContextType {
   items: CartItem[];
   setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  openProductDetail: () => void;
+  closeProductDetail: () => void;
+  isProductDetailOpen: boolean;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   items: [],
   setItems: () => {},
+  openProductDetail: () => {},
+  closeProductDetail: () => {},
+  isProductDetailOpen: false,
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
   const [items, setItems] = useState<CartItem[]>([]);
-  console.log('Cart: ', items);
-  
+  const [isProductDetailOpen, setisProductDetailOpen] = useState(false);
+
+  const openProductDetail = (): void => setisProductDetailOpen(true);
+  const closeProductDetail = (): void => setisProductDetailOpen(false);
+
+  // console.log('Cart: ', items);
 
   return (
     <ShoppingCartContext.Provider
       value={{
         items,
         setItems,
+        openProductDetail,
+        closeProductDetail,
+        isProductDetailOpen,
       }}
     >
       {children}
