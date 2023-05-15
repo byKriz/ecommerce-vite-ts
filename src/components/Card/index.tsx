@@ -3,6 +3,7 @@ import { Product } from "../../Interfaces/Product";
 import { Link } from "react-router-dom";
 import { ShoppingCartContext, ShoppingCartContextType } from "../../Context/ShoppingCartContext";
 import { CartItem } from "../../Interfaces/IteamCart";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   product: Product;
@@ -46,7 +47,7 @@ export const Card = ({ product }: Props): JSX.Element => {
           className="absolute top-1 right-1 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
           onClick={() => handleCart(cartContext, product)}
         >
-          +
+          <PlusIcon className="h-6 text-black"/>
         </div>
       </figure>
       <p className="flex justify-between">

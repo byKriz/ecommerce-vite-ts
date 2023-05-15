@@ -4,6 +4,7 @@ import {
   ShoppingCartContext,
   ShoppingCartContextType,
 } from "../../Context/ShoppingCartContext";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 
@@ -101,7 +102,9 @@ export const Navbar = ({ ...navProps }: Props): JSX.Element => {
             sign In
           </NavLink>
         </li>
-        <li>Carrito {totalItems(cartContext)}</li>
+        <li className="flex gap-1">
+          <ShoppingCartIcon className="w-5" /> {totalItems(cartContext)}
+        </li>
       </ul>
     </nav>
   );
