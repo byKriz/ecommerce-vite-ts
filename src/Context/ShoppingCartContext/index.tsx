@@ -1,10 +1,12 @@
 import React, { createContext, useState } from "react";
 // import { Product } from "../../Interfaces/Product";
 import { CartItem } from "../../Interfaces/IteamCart";
+import { DetailItem } from "../../Interfaces/DetailItem";
 
 interface Props {
   children: React.ReactNode;
 }
+
 
 export interface ShoppingCartContextType {
   items: CartItem[];
@@ -12,6 +14,8 @@ export interface ShoppingCartContextType {
   openProductDetail: () => void;
   closeProductDetail: () => void;
   isProductDetailOpen: boolean;
+  productToShow: DetailItem;
+  setProductToShow: React.Dispatch<React.SetStateAction<DetailItem>>;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
@@ -20,16 +24,21 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   openProductDetail: () => {},
   closeProductDetail: () => {},
   isProductDetailOpen: false,
+  productToShow: {},
+  setProductToShow: () => {},
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
+  // Shopping Cart - Array of products
   const [items, setItems] = useState<CartItem[]>([]);
-  const [isProductDetailOpen, setisProductDetailOpen] = useState(false);
 
+  // Product Deatil - Open/Close
+  const [isProductDetailOpen, setisProductDetailOpen] = useState(false);
   const openProductDetail = (): void => setisProductDetailOpen(true);
   const closeProductDetail = (): void => setisProductDetailOpen(false);
 
-  // console.log('Cart: ', items);
+  // Product Deatil - Show Product
+  const [productToShow, setProductToShow] = useState<DetailItem>({});
 
   return (
     <ShoppingCartContext.Provider
@@ -39,6 +48,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         openProductDetail,
         closeProductDetail,
         isProductDetailOpen,
+        productToShow,
+        setProductToShow,
       }}
     >
       {children}

@@ -1,26 +1,21 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import {
   ShoppingCartContext,
   ShoppingCartContextType,
 } from "../../Context/ShoppingCartContext";
-import { CartItem } from "../../Interfaces/IteamCart";
 
 export const ProductDetails = (): JSX.Element => {
   const cartContext: ShoppingCartContextType = useContext(ShoppingCartContext);
+  // console.log("Product to show: ", cartContext.productToShow);
 
-  const totalPrice = (): number => {
-    const price = cartContext.items.reduce((sum, item) => {
-      return sum + item.price * item.count;
-    }, 0);
-    return price;
-  };
+  const productItem = cartContext.productToShow;
 
   return (
     <aside
       className={
         cartContext.isProductDetailOpen
-          ? "flex flex-col justify-between fixed right-0 top-[80px] border bg-white border-black rounded-lg w-[360px] h-[calc(100vh-80px)]"
+          ? "flex flex-col justify-start fixed right-0 top-[80px] border bg-white border-black rounded-lg w-[360px] h-[calc(100vh-80px)]"
           : "hidden"
       }
     >
@@ -30,30 +25,22 @@ export const ProductDetails = (): JSX.Element => {
           <XCircleIcon className="w-6" />
         </div>
       </div>
-      <div className="flex flex-col mt-4 gap-4 w-full h-[80%] py-2 overflow-y-auto">
-        {cartContext.items.map((item: CartItem) => (
-          <div
-            className="flex items-center px-2 w-full h-[100px]"
-            key={item.id}
-          >
-            <div className=" w-1/2 h-full container">
-              <img
-                src={item.images[0]}
-                alt={item.title}
-                className="h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="">{item.title}</h3>
-              <span>{item.price}$</span>
-              <span>X{item.count}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex w-full h-[10%] items-center justify-center">
-        <span>Total: ${totalPrice()}</span>
-      </div>
+      <figure className="px-6">
+        {productItem.images ? (
+          <img
+            className="w-full h-full rounded-lg"
+            src={productItem.images[0]}
+            alt={productItem.title}
+          />
+        ) : (
+          <img src={""} alt={productItem.title} />
+        )}
+      </figure>
+      <p className="flex flex-col p-6">
+        <span className=" font-medium text-2xl text-green-500 mb-2">${productItem.price}</span>
+        <span className=" font-medium text-md">{productItem.title}</span>
+        <span className=" font-light text-sm">{productItem.description}</span>
+      </p>
     </aside>
   );
 };
