@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Product } from "../../Interfaces/Product";
 import { Link } from "react-router-dom";
 import {
@@ -13,10 +13,15 @@ interface Props {
 }
 
 export const handleCart = (
-  contex: ShoppingCartContextType,
+  event: React.SyntheticEvent,
+  context: ShoppingCartContextType,
   item: Product
 ): void => {
-  contex.setItems((prev: CartItem[]) => {
+  //evitando la propagacion del evento
+  event.stopPropagation();
+  
+  // Agregando productos en el carrito
+  context.setItems((prev: CartItem[]) => {
     const itemIndex = prev.findIndex((prod) => prod.id === item.id);
 
     if (itemIndex === -1) {
@@ -29,6 +34,7 @@ export const handleCart = (
     updatedCart[itemIndex] = updatedItem;
     return updatedCart;
   });
+  context.openCheckoutMenu();
 };
 
 export const Card = ({ product }: Props): JSX.Element => {
@@ -56,7 +62,7 @@ export const Card = ({ product }: Props): JSX.Element => {
         />
         <div
           className="absolute top-1 right-1 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
-          onClick={() => handleCart(cartContext, product)}
+          onClick={(event) => handleCart(event, cartContext, product)}
         >
           <PlusIcon className="h-6 text-black" />
         </div>

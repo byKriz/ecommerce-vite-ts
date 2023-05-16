@@ -3,6 +3,7 @@ import { Card } from "../../components/Card";
 import { Layout } from "../../components/Layout";
 import { Product } from "../../Interfaces/Product";
 import { ProductDetails } from "../../components/ProductDetail";
+import { CheckouSideMenu } from "../../components/CheckoutSideMenu";
 
 export const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,6 +23,7 @@ export const Home = () => {
         ))}
       </div>
       <ProductDetails />
+      <CheckouSideMenu />
     </Layout>
   );
 };

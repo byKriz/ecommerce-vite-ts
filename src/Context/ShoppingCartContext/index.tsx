@@ -16,6 +16,9 @@ export interface ShoppingCartContextType {
   isProductDetailOpen: boolean;
   productToShow: DetailItem;
   setProductToShow: React.Dispatch<React.SetStateAction<DetailItem>>;
+  isCheckoutMenuOpen: boolean;
+  openCheckoutMenu: () => void;
+  closeCheckoutMenu: () => void;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
@@ -26,6 +29,10 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   isProductDetailOpen: false,
   productToShow: {},
   setProductToShow: () => {},
+  isCheckoutMenuOpen: false,
+  openCheckoutMenu: () => {},
+  closeCheckoutMenu: () => {},
+
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
@@ -40,16 +47,25 @@ export const ShoppingCartProvider = ({ children }: Props) => {
   // Product Deatil - Show Product
   const [productToShow, setProductToShow] = useState<DetailItem>({});
 
+  // Checkout - Show
+  const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false)
+  const openCheckoutMenu = (): void => setIsCheckoutMenuOpen(true);
+  const closeCheckoutMenu = (): void => setIsCheckoutMenuOpen(false);
+
   return (
     <ShoppingCartContext.Provider
       value={{
         items,
         setItems,
+        isProductDetailOpen,
         openProductDetail,
         closeProductDetail,
-        isProductDetailOpen,
         productToShow,
         setProductToShow,
+        isCheckoutMenuOpen,
+        openCheckoutMenu,
+        closeCheckoutMenu,
+
       }}
     >
       {children}
