@@ -5,6 +5,7 @@ import {
   ShoppingCartContextType,
 } from "../../Context/ShoppingCartContext";
 import { OrderCard } from "../OrderCard";
+import { totalItems, totalPrice } from "../../utils";
 
 export const CheckouSideMenu = (): JSX.Element => {
   const context: ShoppingCartContextType = useContext(ShoppingCartContext);
@@ -30,6 +31,13 @@ export const CheckouSideMenu = (): JSX.Element => {
         {context.items.map((product) => (
           <OrderCard product={product} key={product.id} />
         ))}
+      </div>
+      <div className="px-4">
+        <p className="flex justify-between items-center">
+          <span className="font-light">SubTotal ({totalItems(context)} products): </span>
+          <span className="font-medium text-2xl">${totalPrice(context)}</span>
+        </p>
+        <p></p>
       </div>
     </aside>
   );

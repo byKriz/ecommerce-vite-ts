@@ -61,7 +61,7 @@ export const OrderCard = ({ product }: Props) => {
           >
             <MinusIcon />
           </span>
-          <span className="flex items-center justify-center bg-gray-200 w-6 h-6 p-1">
+          <span className="flex items-center justify-center bg-gray-200 w-6 h-6 p-1 select-none">
             {count}
           </span>
           <span

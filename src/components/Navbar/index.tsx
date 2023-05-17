@@ -5,14 +5,15 @@ import {
   ShoppingCartContextType,
 } from "../../Context/ShoppingCartContext";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { totalItems } from "../../utils";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 
-const totalItems = (context: ShoppingCartContextType) => {
-  const total = context.items.reduce((total, item) => total + item.count, 0);
-  // console.log(total);
-  return total;
-};
+// const totalItems = (context: ShoppingCartContextType) => {
+//   const total = context.items.reduce((total, item) => total + item.count, 0);
+//   // console.log(total);
+//   return total;
+// };
 
 export const Navbar = ({ ...navProps }: Props): JSX.Element => {
   const cartContext = useContext(ShoppingCartContext);
