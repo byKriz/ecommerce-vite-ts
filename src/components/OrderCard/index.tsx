@@ -17,12 +17,8 @@ export const OrderCard = ({ product }: Props) => {
   const context = useContext(ShoppingCartContext);
 
   const deleteProduct = (id: number): void => {
-    context.setItems((prev: CartItem[]) => {
-      const itemIndex = prev.findIndex((prod) => prod.id === id);
-      const updatedCart = [...prev];
-      updatedCart.splice(itemIndex, 1);
-      return updatedCart;
-    });
+    const fileredProducts = context.items.filter((product) => product.id != id);
+    context.setItems(fileredProducts);
   };
 
   const sumOrRestItem = (id: number, action: SumRest): void => {
@@ -52,12 +48,10 @@ export const OrderCard = ({ product }: Props) => {
             alt={title}
           />
         </figure>
-      <div className="flex flex-col flex-wrap">
-        <span className="text-lg font-medium text-green-500">
-          ${price * count}
-        </span>
-        <p className="text-sm font-light">{title}</p>
-      </div>
+        <div className="flex flex-col flex-wrap">
+          <span className="text-lg font-medium text-green-500">${price}</span>
+          <p className="text-sm font-light">{title}</p>
+        </div>
       </div>
       <div className="flex">
         <p className="flex justify-center items-center gap-1">
