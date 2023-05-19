@@ -2,11 +2,11 @@ import React, { createContext, useState } from "react";
 // import { Product } from "../../Interfaces/Product";
 import { CartItem } from "../../Interfaces/IteamCart";
 import { DetailItem } from "../../Interfaces/DetailItem";
+import { Order } from "../../Interfaces/Order";
 
 interface Props {
   children: React.ReactNode;
 }
-
 
 export interface ShoppingCartContextType {
   items: CartItem[];
@@ -19,6 +19,8 @@ export interface ShoppingCartContextType {
   isCheckoutMenuOpen: boolean;
   openCheckoutMenu: () => void;
   closeCheckoutMenu: () => void;
+  order: Order[];
+  setOrder: React.Dispatch<React.SetStateAction<Order[]>>;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
@@ -32,7 +34,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   isCheckoutMenuOpen: false,
   openCheckoutMenu: () => {},
   closeCheckoutMenu: () => {},
-
+  order: [],
+  setOrder: () => {},
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
@@ -48,9 +51,12 @@ export const ShoppingCartProvider = ({ children }: Props) => {
   const [productToShow, setProductToShow] = useState<DetailItem>({});
 
   // Checkout - Show
-  const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false)
+  const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false);
   const openCheckoutMenu = (): void => setIsCheckoutMenuOpen(true);
   const closeCheckoutMenu = (): void => setIsCheckoutMenuOpen(false);
+
+  // Shopping Cart - Order
+  const [order, setOrder] = useState<Order[]>([]);
 
   return (
     <ShoppingCartContext.Provider
@@ -65,7 +71,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         isCheckoutMenuOpen,
         openCheckoutMenu,
         closeCheckoutMenu,
-
+        order,
+        setOrder,
       }}
     >
       {children}
