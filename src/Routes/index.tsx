@@ -25,7 +25,7 @@ export const AppRoutes = (): React.ReactElement<
       element: <MyOrders />,
     },
     {
-      path: "/my-orders/last",
+      path: "/my-orders/:id",
       element: <MyOrder />,
     },
     {
