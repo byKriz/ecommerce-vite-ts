@@ -1,7 +1,7 @@
 import { CartItem } from "../IteamCart";
 
 export interface Order {
-    id?: number;
+    id?: string;
     products?: CartItem[]
     totalPrice?: number;
     totalProducts?: number;

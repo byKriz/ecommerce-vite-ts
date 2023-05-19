@@ -5,7 +5,7 @@ import {
   ShoppingCartContextType,
 } from "../../Context/ShoppingCartContext";
 import { OrderCard } from "../OrderCard";
-import { totalItems, totalPrice } from "../../utils";
+import { generateId, totalItems, totalPrice } from "../../utils";
 import { Order } from "../../Interfaces/Order";
 import { Link } from "react-router-dom";
 
@@ -16,9 +16,10 @@ export const CheckouSideMenu = (): JSX.Element => {
 
   const handleCheckout = (): void => {
     const orderToAdd: Order = {
+      id: generateId(),
       creationAt: new Date(),
       products: context.items,
-      totalProducts: context.items.length,
+      totalProducts: totalItems(context),
       totalPrice: totalPrice(context),
     };
 
