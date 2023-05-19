@@ -11,11 +11,13 @@ export const MyOrders = () => {
   return (
     <Layout>
       <h1>MyOrders</h1>
-      {orders.map((order) => (
-        <Link to={`/my-orders/${order.id}`} key={order.id}>
-          <OrdersCard order={order} />
-        </Link>
-      ))}
+      <div className="flex flex-col gap-3">
+        {orders.map((order) => (
+          <Link to={`/my-orders/${order.id}`} key={order.id}>
+            <OrdersCard order={order} />
+          </Link>
+        ))}
+      </div>
     </Layout>
   );
 };
