@@ -18,7 +18,7 @@ export const MyOrder = () => {
 
   const params = useParams();
 
-  const viewOrder = () => {
+  const viewOrder = (): JSX.Element[] | null | undefined => {
     if (existOrder()) {
       if (params.id === "last") {
         return context.orders
