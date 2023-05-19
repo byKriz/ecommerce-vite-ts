@@ -20,7 +20,7 @@ export const CheckouSideMenu = (): JSX.Element => {
       totalPrice: totalPrice(context),
     };
 
-    context.setOrder([...context.order, orderToAdd]);
+    context.setOrders([...context.orders, orderToAdd]);
     context.setItems([]);
   };
 

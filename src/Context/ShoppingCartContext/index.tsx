@@ -19,8 +19,8 @@ export interface ShoppingCartContextType {
   isCheckoutMenuOpen: boolean;
   openCheckoutMenu: () => void;
   closeCheckoutMenu: () => void;
-  order: Order[];
-  setOrder: React.Dispatch<React.SetStateAction<Order[]>>;
+  orders: Order[];
+  setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
@@ -34,8 +34,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   isCheckoutMenuOpen: false,
   openCheckoutMenu: () => {},
   closeCheckoutMenu: () => {},
-  order: [],
-  setOrder: () => {},
+  orders: [],
+  setOrders: () => {},
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
@@ -56,7 +56,7 @@ export const ShoppingCartProvider = ({ children }: Props) => {
   const closeCheckoutMenu = (): void => setIsCheckoutMenuOpen(false);
 
   // Shopping Cart - Order
-  const [order, setOrder] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   return (
     <ShoppingCartContext.Provider
@@ -71,8 +71,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         isCheckoutMenuOpen,
         openCheckoutMenu,
         closeCheckoutMenu,
-        order,
-        setOrder,
+        orders,
+        setOrders,
       }}
     >
       {children}
