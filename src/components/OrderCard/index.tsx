@@ -10,7 +10,11 @@ interface Props {
   handleSumOrRestItem?: (id: number, action: SumRest) => void;
 }
 
-export const OrderCard = ({ product, handleDelete,  handleSumOrRestItem}: Props) => {
+export const OrderCard = ({
+  product,
+  handleDelete,
+  handleSumOrRestItem,
+}: Props) => {
   const { id, title, images, price, count } = product;
 
   return (
@@ -30,26 +34,36 @@ export const OrderCard = ({ product, handleDelete,  handleSumOrRestItem}: Props)
       </div>
       <div className="flex">
         <p className="flex justify-center items-center gap-1">
-          <span
-            className="flex items-center justify-center w-5 h-5 font-bold text-lg"
-            onClick={() => handleSumOrRestItem ? handleSumOrRestItem(id, "minus") : null}
-          >
-            <MinusIcon />
-          </span>
+          {handleSumOrRestItem && (
+            <span
+              className="flex items-center justify-center w-5 h-5 font-bold text-lg"
+              onClick={() =>
+                handleSumOrRestItem ? handleSumOrRestItem(id, "minus") : null
+              }
+            >
+              <MinusIcon />
+            </span>
+          )}
           <span className="flex items-center justify-center bg-gray-200 w-6 h-6 p-1 select-none">
             {count}
           </span>
-          <span
-            className="flex items-center justify-center w-5 h-5 font-bold text-lg"
-            onClick={() => handleSumOrRestItem ? handleSumOrRestItem(id, "plus") : null}
-          >
-            <PlusIcon />
-          </span>
+          {handleSumOrRestItem && (
+            <span
+              className="flex items-center justify-center w-5 h-5 font-bold text-lg"
+              onClick={() =>
+                handleSumOrRestItem ? handleSumOrRestItem(id, "plus") : null
+              }
+            >
+              <PlusIcon />
+            </span>
+          )}
         </p>
-        <TrashIcon
-          className="w-5 text-black"
-          onClick={() => handleDelete ? handleDelete(id) : null}
-        />
+        {handleDelete && (
+          <TrashIcon
+            className="w-5 text-black"
+            onClick={() => (handleDelete ? handleDelete(id) : null)}
+          />
+        )}
       </div>
     </div>
   );
