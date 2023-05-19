@@ -11,12 +11,9 @@ export const MyOrders = () => {
   return (
     <Layout>
       <h1>MyOrders</h1>
-      {orders.map((order, index) => (
-        <Link to={`/my-orders/${order.id}`} key={index}>
-          <OrdersCard
-            totalPrice={order.totalPrice ? order.totalPrice : NaN}
-            totalProducts={order.totalProducts ? order.totalProducts : NaN}
-          />
+      {orders.map((order) => (
+        <Link to={`/my-orders/${order.id}`} key={order.id}>
+          <OrdersCard order={order} />
         </Link>
       ))}
     </Layout>
