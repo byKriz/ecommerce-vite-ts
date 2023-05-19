@@ -9,6 +9,8 @@ import { totalItems, totalPrice } from "../../utils";
 import { Order } from "../../Interfaces/Order";
 import { Link } from "react-router-dom";
 
+export type SumRest = "minus" | "plus";
+
 export const CheckouSideMenu = (): JSX.Element => {
   const context: ShoppingCartContextType = useContext(ShoppingCartContext);
 
@@ -22,6 +24,28 @@ export const CheckouSideMenu = (): JSX.Element => {
 
     context.setOrders([...context.orders, orderToAdd]);
     context.setItems([]);
+  };
+
+  const handleDelete = (id: number): void => {
+    const fileredProducts = context.items.filter((product) => product.id != id);
+    context.setItems(fileredProducts);
+  };
+
+  const handleSumOrRestItem = (id: number, action: SumRest): void => {
+    const newProducts = [...context.items];
+    const itemIndex = newProducts.findIndex((prod) => prod.id === id);
+    if (action === "minus") {
+      if (newProducts[itemIndex].count >= 1) {
+        newProducts[itemIndex].count = newProducts[itemIndex].count - 1;
+        context.setItems(newProducts);
+      }
+      if (newProducts[itemIndex].count < 1) {
+        handleDelete(id);
+      }
+    } else if (action === "plus") {
+      newProducts[itemIndex].count = newProducts[itemIndex].count + 1;
+      context.setItems(newProducts);
+    }
   };
 
   return (
@@ -40,7 +64,7 @@ export const CheckouSideMenu = (): JSX.Element => {
       </div>
       <div className="flex flex-col gap-4 px-4 overflow-y-auto flex-1">
         {context.items.map((product) => (
-          <OrderCard product={product} key={product.id} />
+          <OrderCard product={product} key={product.id} handleDelete={handleDelete} handleSumOrRestItem={handleSumOrRestItem}/>
         ))}
       </div>
       <div className="px-4 mb-6">
@@ -50,8 +74,13 @@ export const CheckouSideMenu = (): JSX.Element => {
           </span>
           <span className="font-medium text-2xl">${totalPrice(context)}</span>
         </p>
-        <Link to={'/my-orders/last'}>
-          <button className="bg-black w-full py-3 text-white font-bold rounded-lg hover:text-yellow-300" onClick={handleCheckout}>Checkout</button>
+        <Link to={"/my-orders/last"}>
+          <button
+            className="bg-black w-full py-3 text-white font-bold rounded-lg hover:text-yellow-300"
+            onClick={handleCheckout}
+          >
+            Checkout
+          </button>
         </Link>
       </div>
     </aside>

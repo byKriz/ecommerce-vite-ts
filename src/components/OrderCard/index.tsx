@@ -1,42 +1,17 @@
-import { useContext } from "react";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { MinusIcon } from "@heroicons/react/24/outline";
 import { CartItem } from "../../Interfaces/IteamCart";
-import { ShoppingCartContext } from "../../Context/ShoppingCartContext";
+import { SumRest } from "../CheckoutSideMenu";
 
 interface Props {
   product: CartItem;
+  handleDelete?: (id: number) => void;
+  handleSumOrRestItem?: (id: number, action: SumRest) => void;
 }
 
-type SumRest = "minus" | "plus";
-
-export const OrderCard = ({ product }: Props) => {
+export const OrderCard = ({ product, handleDelete,  handleSumOrRestItem}: Props) => {
   const { id, title, images, price, count } = product;
-
-  const context = useContext(ShoppingCartContext);
-
-  const deleteProduct = (id: number): void => {
-    const fileredProducts = context.items.filter((product) => product.id != id);
-    context.setItems(fileredProducts);
-  };
-
-  const sumOrRestItem = (id: number, action: SumRest): void => {
-    const newProducts = [...context.items];
-    const itemIndex = newProducts.findIndex((prod) => prod.id === id);
-    if (action === "minus") {
-      if (newProducts[itemIndex].count >= 1) {
-        newProducts[itemIndex].count = newProducts[itemIndex].count - 1;
-        context.setItems(newProducts);
-      }
-      if (newProducts[itemIndex].count < 1) {
-        deleteProduct(id);
-      }
-    } else if (action === "plus") {
-      newProducts[itemIndex].count = newProducts[itemIndex].count + 1;
-      context.setItems(newProducts);
-    }
-  };
 
   return (
     <div className="flex justify-between items-center gap-1">
@@ -57,7 +32,7 @@ export const OrderCard = ({ product }: Props) => {
         <p className="flex justify-center items-center gap-1">
           <span
             className="flex items-center justify-center w-5 h-5 font-bold text-lg"
-            onClick={() => sumOrRestItem(id, "minus")}
+            onClick={() => handleSumOrRestItem ? handleSumOrRestItem(id, "minus") : null}
           >
             <MinusIcon />
           </span>
@@ -66,14 +41,14 @@ export const OrderCard = ({ product }: Props) => {
           </span>
           <span
             className="flex items-center justify-center w-5 h-5 font-bold text-lg"
-            onClick={() => sumOrRestItem(id, "plus")}
+            onClick={() => handleSumOrRestItem ? handleSumOrRestItem(id, "plus") : null}
           >
             <PlusIcon />
           </span>
         </p>
         <TrashIcon
           className="w-5 text-black"
-          onClick={() => deleteProduct(id)}
+          onClick={() => handleDelete ? handleDelete(id) : null}
         />
       </div>
     </div>
