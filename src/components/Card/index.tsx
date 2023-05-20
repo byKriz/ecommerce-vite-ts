@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Product } from "../../Interfaces/Product";
-import { Link } from "react-router-dom";
 import {
   ShoppingCartContext,
   ShoppingCartContextType,
