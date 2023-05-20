@@ -26,16 +26,15 @@ export const MyOrder = () => {
 
   const viewOrder = (): ViewOrder | null => {
     if (existOrder()) {
-      const lastOrder = context.orders.slice(-1)[0];
-      const orderById = context.orders.filter(
-        (order) => order.id === params.id
-      )[0];
-
       if (params.id === "last") {
+        const lastOrder = context.orders.slice(-1)[0];
         const products = lastOrder.products;
         const totalPrice = lastOrder.totalPrice;
         return { products, totalPrice };
       } else {
+        const orderById = context.orders.filter(
+          (order) => order.id === params.id
+        )[0];
         const products = orderById.products;
         const totalPrice = orderById ? orderById.totalPrice : 0;
         return { products, totalPrice };
