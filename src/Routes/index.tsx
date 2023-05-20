@@ -7,13 +7,19 @@ import { NotFound } from "../pages/NotFound";
 import { SignIn } from "../pages/SignIn";
 import { ProductPage } from "../pages/ProductPage";
 
-export const AppRoutes = (): React.ReactElement<
+type AppRoutesType = React.ReactElement<
   any,
   string | React.JSXElementConstructor<any>
-> | null => {
+> | null;
+
+export const AppRoutes = (): AppRoutesType => {
   const routes: React.ReactElement | null = useRoutes([
     {
       path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/:category",
       element: <Home />,
     },
     {
@@ -38,8 +44,8 @@ export const AppRoutes = (): React.ReactElement<
     },
     {
       path: "/product/:id",
-      element: <ProductPage />
-    }
+      element: <ProductPage />,
+    },
   ]);
 
   return routes;
