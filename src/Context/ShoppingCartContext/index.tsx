@@ -1,8 +1,8 @@
-import React, { createContext, useState } from "react";
-// import { Product } from "../../Interfaces/Product";
+import React, { createContext, useEffect, useState } from "react";
 import { CartItem } from "../../Interfaces/IteamCart";
 import { DetailItem } from "../../Interfaces/DetailItem";
 import { Order } from "../../Interfaces/Order";
+import { Product } from "../../Interfaces/Product";
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +21,8 @@ export interface ShoppingCartContextType {
   closeCheckoutMenu: () => void;
   orders: Order[];
   setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
 export const ShoppingCartContext = createContext<ShoppingCartContextType>({
@@ -36,6 +38,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   closeCheckoutMenu: () => {},
   orders: [],
   setOrders: () => {},
+  products: [],
+  setProducts: () => {},
 });
 
 export const ShoppingCartProvider = ({ children }: Props) => {
@@ -58,6 +62,16 @@ export const ShoppingCartProvider = ({ children }: Props) => {
   // Shopping Cart - Order
   const [orders, setOrders] = useState<Order[]>([]);
 
+  // Refactorination of api calls - Get Products
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("https://api.escuelajs.co/api/v1/products")
+      .then((resp) => resp.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -73,6 +87,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         closeCheckoutMenu,
         orders,
         setOrders,
+        products,
+        setProducts,
       }}
     >
       {children}
