@@ -4,24 +4,20 @@ import { Layout } from "../../components/Layout";
 import { ProductDetails } from "../../components/ProductDetail";
 import { CheckouSideMenu } from "../../components/CheckoutSideMenu";
 import { ShoppingCartContext } from "../../Context/ShoppingCartContext";
-import { useParams } from "react-router-dom";
+import { Params, useParams } from "react-router-dom";
 import { Product } from "../../Interfaces/Product";
 
 type ChangeEventType = ChangeEvent<HTMLInputElement>;
 
-enum CategoryNames {
-  Electronics = "electronics",
-  Furniture = "furniture",
-  Others = "others",
-  Shoes = "shoes",
-  Toys = "toys",
+interface ParamsType {
+  category?: Readonly<Params<string>>;
 }
 
 export const Home = (): JSX.Element => {
   const [search, setSearch] = useState<string>("");
   const context = useContext(ShoppingCartContext);
   let products = context.products;
-  const params = useParams();
+  const params: ParamsType = useParams();
 
   const handleSearch = (e: ChangeEventType) => {
     setSearch(e.target.value.toLocaleLowerCase());
@@ -29,32 +25,18 @@ export const Home = (): JSX.Element => {
 
   const searchByCategory = (): Product[] => {
     let productsFiltred: Product[];
+    const categories = ["electronics", "furniture", "others", "shoes", "toys"];
 
-    if (params.category === CategoryNames.Electronics) {
-      productsFiltred = products.filter(
-        (p) => p.category.name === CategoryNames.Electronics
-      );
-      return productsFiltred;
-    } else if (params.category === CategoryNames.Furniture) {
-      productsFiltred = products.filter(
-        (p) => p.category.name === CategoryNames.Furniture
-      );
-      return productsFiltred;
-    } else if (params.category === CategoryNames.Shoes) {
-      productsFiltred = products.filter(
-        (p) => p.category.name === CategoryNames.Shoes
-      );
-      return productsFiltred;
-    } else if (params.category === CategoryNames.Toys) {
-      productsFiltred = products.filter(
-        (p) => p.category.name === CategoryNames.Toys
-      );
-      return productsFiltred;
-    } else if (params.category === CategoryNames.Others) {
-      productsFiltred = products.filter(
-        (p) => p.category.name === CategoryNames.Others
-      );
-      return productsFiltred;
+    if (typeof params.category === "string") {
+      if (categories.indexOf(params.category) !== -1) {
+        const categoryIndex = categories.indexOf(params.category);
+        productsFiltred = products.filter(
+          (product) =>
+            product.category.name.toLocaleLowerCase() ===
+            categories[categoryIndex].toLocaleLowerCase()
+        );
+        return productsFiltred;
+      }
     }
     return products;
   };
